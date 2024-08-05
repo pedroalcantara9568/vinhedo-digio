@@ -1,0 +1,14 @@
+spring:
+  application:
+  name:
+    vinhedo-digio
+
+services:
+  produtos-client:
+    url: https://rgr3viiqdl8sikgv.public.blob.vercel-storage.com
+    get-protudos-path:
+      url: /clientes-Vz1U6aR3GTsjb3W8BRJhcNKmA81pVh.json
+  clientes-compras-client:
+    url: https://rgr3viiqdl8sikgv.public.blob.vercel-storage.com/
+    get-compras-client-path:
+      url: /clientes-Vz1U6aR3GTsjb3W8BRJhcNKmA81pVh.json
