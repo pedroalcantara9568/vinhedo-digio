@@ -8,9 +8,8 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
+@Data
 @Builder
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Cliente implements Serializable {

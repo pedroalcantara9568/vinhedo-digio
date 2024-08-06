@@ -7,9 +7,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+@Data
 @Builder
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MaioresComprasDTO implements Serializable {

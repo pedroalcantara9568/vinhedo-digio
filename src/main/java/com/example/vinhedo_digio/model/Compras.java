@@ -6,9 +6,8 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+@Data
 @Builder
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Compras implements Serializable {

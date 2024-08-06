@@ -17,7 +17,7 @@ import java.util.Objects;
 public class ClienteService {
 
     public static final String MESSAGE = "CPF não encontrado na Lista de Clientes";
-    public static final String NENHUMA_RECOMENDAÇAO_DE_VINHO = "Não foi encontrada nenhuma recomendação de vinho";
+    public static final String NENHUMA_RECOMENDACAO_DE_VINHO = "Não foi encontrada nenhuma recomendação de vinho";
     private final ClientesEProdutosService clientesEProdutosService;
     private final ComprasService comprasService;
 
@@ -33,7 +33,7 @@ public class ClienteService {
         return produtos.stream()
                 .filter(produto -> Objects.equals(tipoDoVinhoMaisComprado, produto.getTipoVinho()))
                 .findFirst()
-                .orElseThrow(() -> new NaoEcontradoException(NENHUMA_RECOMENDAÇAO_DE_VINHO));
+                .orElseThrow(() -> new NaoEcontradoException(NENHUMA_RECOMENDACAO_DE_VINHO));
     }
 
     private String obterTipoDoVinhoMaisComprado(String vinhoMaisComprado, List<Produto> produtos) {
@@ -41,7 +41,7 @@ public class ClienteService {
                 .filter(produto -> Objects.equals(Long.valueOf(vinhoMaisComprado), produto.getCodigo()))
                 .map(Produto::getTipoVinho)
                 .findFirst()
-                .orElseThrow(() -> new NaoEcontradoException(NENHUMA_RECOMENDAÇAO_DE_VINHO));
+                .orElseThrow(() -> new NaoEcontradoException(NENHUMA_RECOMENDACAO_DE_VINHO));
     }
 
     private static String obterCodigoDoVinhoMaisComprado(String cpf, List<Cliente> clientes) {

@@ -5,9 +5,8 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 
+@Data
 @Builder
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Compra implements Serializable {
