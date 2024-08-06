@@ -7,6 +7,7 @@ import com.example.vinhedo_digio.service.ComprasService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,8 +24,13 @@ public class ComprasController {
     private final ComprasService comprasService;
 
     @GetMapping("/compras")
-    public ResponseEntity<List<MaioresComprasDTO>> obterClientesFieis() {
+    public ResponseEntity<List<MaioresComprasDTO>> obterMaioresCompras() {
         return ResponseEntity.ok(comprasService.obterMaioresCompras());
+    }
+
+    @GetMapping("/compras/{ano}")
+    public ResponseEntity<MaioresComprasDTO> obterMaiorCompraPorAno(@PathVariable("ano") Long ano) {
+        return ResponseEntity.ok(comprasService.obterMaiorCompraPorAno(ano));
     }
 
 }

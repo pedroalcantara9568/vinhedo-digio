@@ -19,5 +19,6 @@ public class Compras implements Serializable {
     private String tipo_vinho;
     private BigDecimal preco;
     private Integer quantidade;
+    private Long ano_compra;
     private String safra;
 }

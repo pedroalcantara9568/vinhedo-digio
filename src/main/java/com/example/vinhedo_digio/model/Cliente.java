@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Clientes implements Serializable {
+public class Cliente implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 2765213458186250568L;
