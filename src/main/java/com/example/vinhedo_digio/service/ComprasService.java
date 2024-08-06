@@ -1,24 +1,25 @@
 package com.example.vinhedo_digio.service;
 
-import com.example.vinhedo_digio.client.ClientesComprasClient;
-import com.example.vinhedo_digio.client.ProdutosClient;
+import com.example.vinhedo_digio.exception.NaoEcontradoException;
 import com.example.vinhedo_digio.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class ComprasService {
-    private final ProdutosClient produtosClient;
-    private final ClientesComprasClient client;
+    public static final String MESSAGE = "Não foi encontrado compras para o ano buscado";
+    private final ClientesEProdutosService clientesEProdutosService;
 
     public List<MaioresComprasDTO> obterMaioresCompras() {
-        var result = obterClientesEProdutos();
-
-        List<MaioresComprasDTO> maioresComprasDTOS = obterMaioresComprasDetalhadas(result.clientes(), result.produtos());
+        var result = clientesEProdutosService.obterClientesEProdutos();
+        var maioresComprasDTOS = obterMaioresComprasDetalhadas(result.clientes(), result.produtos());
 
         return maioresComprasDTOS.stream()
                 .sorted(Comparator.comparing(MaioresComprasDTO::getValorTotal).reversed())
@@ -26,18 +27,16 @@ public class ComprasService {
     }
 
     public MaioresComprasDTO obterMaiorCompraPorAno(Long ano) {
-        var clientesEProdutos = obterClientesEProdutos();
+        var clientesEProdutos = clientesEProdutosService.obterClientesEProdutos();
 
         return clientesEProdutos.clientes().stream()
                 .flatMap(cliente -> cliente.getCompras().stream()
-                        .map(compra -> criarMaioresComprasDTOSeAnoIgual(ano, cliente, compra, clientesEProdutos.produtos()))
-                        .filter(Optional::isPresent)
-                        .map(Optional::get))
+                        .map(compra -> criarMaioresComprasDTOSeAnoIgual(ano, cliente, compra, clientesEProdutos.produtos())))
                 .max(Comparator.comparing(MaioresComprasDTO::getValorTotal))
-                .orElse(null);
+                .orElseThrow(() -> new NaoEcontradoException(MESSAGE));
     }
 
-    private Optional<MaioresComprasDTO> criarMaioresComprasDTOSeAnoIgual(Long ano, Cliente cliente, Compra compra, List<Produto> produtos) {
+    private MaioresComprasDTO criarMaioresComprasDTOSeAnoIgual(Long ano, Cliente cliente, Compra compra, List<Produto> produtos) {
         return produtos.stream()
                 .filter(produto -> Objects.equals(produto.getCodigo(), Long.valueOf(compra.getCodigo())))
                 .filter(produto -> Objects.equals(ano, produto.getAnoCompra()))
@@ -45,22 +44,21 @@ public class ComprasService {
                     BigDecimal valorTotalCompra = produto.getPreco().multiply(BigDecimal.valueOf(compra.getQuantidade()));
                     return criarMaioresComprasDTO(cliente, compra, produto, valorTotalCompra);
                 })
-                .findFirst();
+                .findFirst().orElseThrow(() -> new NaoEcontradoException(MESSAGE));
     }
 
     private MaioresComprasDTO criarMaioresComprasDTO(Cliente cliente, Compra compra, Produto produto, BigDecimal valorTotalCompra) {
-        List<Compras> comprasList = List.of(new Compras(produto.getCodigo(), produto.getTipoVinho(), produto.getPreco(), compra.getQuantidade(), produto.getAnoCompra(), produto.getSafra()));
+        var comprasList = List.of(new Compras(produto.getCodigo(),
+                produto.getTipoVinho(),
+                produto.getPreco(),
+                compra.getQuantidade(),
+                produto.getAnoCompra(),
+                produto.getSafra()));
         return new MaioresComprasDTO(cliente.getNome(), cliente.getCpf(), comprasList, valorTotalCompra);
     }
 
-    private ClientesECompras obterClientesEProdutos() {
-        List<Cliente> clientes = client.obterClientesCompras();
-        List<Produto> produtos = produtosClient.obterProdutos();
-        return new ClientesECompras(clientes, produtos);
-    }
-
     private List<MaioresComprasDTO> obterMaioresComprasDetalhadas(List<Cliente> clientes, List<Produto> produtos) {
-        List<MaioresComprasDTO> listaMaiores = new ArrayList<>();
+        var listaMaiores = new ArrayList<MaioresComprasDTO>();
         clientes.forEach(cliente -> {
             BigDecimal valorTotal = obterValorTotal(cliente, produtos);
             List<Compras> compras = obterCompras(cliente, produtos);

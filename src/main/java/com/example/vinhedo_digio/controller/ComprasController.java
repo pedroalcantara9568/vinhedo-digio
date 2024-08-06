@@ -1,7 +1,5 @@
 package com.example.vinhedo_digio.controller;
 
-import com.example.vinhedo_digio.client.ClientesComprasClient;
-import com.example.vinhedo_digio.client.ProdutosClient;
 import com.example.vinhedo_digio.model.MaioresComprasDTO;
 import com.example.vinhedo_digio.service.ComprasService;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +14,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class ComprasController {
-
-    private final ProdutosClient produtosClient;
-
-    private final ClientesComprasClient client;
 
     private final ComprasService comprasService;
 
