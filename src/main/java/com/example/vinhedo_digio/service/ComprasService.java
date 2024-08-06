@@ -15,9 +15,9 @@ public class ComprasService {
     private final ClientesEProdutosService clientesEProdutosService;
 
     public List<MaioresComprasDTO> obterMaioresCompras() {
-        var result = clientesEProdutosService.obterClientesEProdutos();
+        var clientesECompras = clientesEProdutosService.obterClientesEProdutos();
 
-        var maioresComprasDTOS = obterMaioresComprasDetalhadas(result.clientes(), result.produtos());
+        var maioresComprasDTOS = obterMaioresComprasDetalhadas(clientesECompras.clientes(), clientesECompras.produtos());
 
         return maioresComprasDTOS.stream()
                 .sorted(Comparator.comparing(MaioresComprasDTO::getValorTotal).reversed())
