@@ -30,7 +30,6 @@ class ClienteServiceTest {
 
     @Test
     void obterClientesFieis() {
-//        ClientesECompras expected = ClientesEComprasMock.build();
         var esperado = List.of(RANDOM.nextObject(MaioresCompras.class));
         when(compraService.obterMaioresCompras()).thenReturn(esperado);
 

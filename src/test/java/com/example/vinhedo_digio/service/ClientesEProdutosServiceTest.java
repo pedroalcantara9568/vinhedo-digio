@@ -24,6 +24,7 @@ class ClientesEProdutosServiceTest {
 
     @Mock
     private ClientesComprasClient comprasClient;
+
     @InjectMocks
     ClientesEProdutosService service;
 
