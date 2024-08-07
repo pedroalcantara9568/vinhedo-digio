@@ -1,6 +1,6 @@
 package com.example.vinhedo_digio.controller;
 
-import com.example.vinhedo_digio.model.MaioresComprasDTO;
+import com.example.vinhedo_digio.model.MaioresCompras;
 import com.example.vinhedo_digio.service.ComprasService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +18,12 @@ public class ComprasController {
     private final ComprasService comprasService;
 
     @GetMapping("/compras")
-    public ResponseEntity<List<MaioresComprasDTO>> obterMaioresCompras() {
+    public ResponseEntity<List<MaioresCompras>> obterMaioresCompras() {
         return ResponseEntity.ok(comprasService.obterMaioresCompras());
     }
 
     @GetMapping("/compras/{ano}")
-    public ResponseEntity<MaioresComprasDTO> obterMaiorCompraPorAno(@PathVariable("ano") Long ano) {
+    public ResponseEntity<MaioresCompras> obterMaiorCompraPorAno(@PathVariable("ano") Long ano) {
         return ResponseEntity.ok(comprasService.obterMaiorCompraPorAno(ano));
     }
 

@@ -1,11 +1,8 @@
 package com.example.vinhedo_digio.controller;
 
-import com.example.vinhedo_digio.client.ClientesComprasClient;
-import com.example.vinhedo_digio.client.ProdutosClient;
-import com.example.vinhedo_digio.model.MaioresComprasDTO;
+import com.example.vinhedo_digio.model.MaioresCompras;
 import com.example.vinhedo_digio.model.Produto;
 import com.example.vinhedo_digio.service.ClienteService;
-import com.example.vinhedo_digio.service.ComprasService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +19,7 @@ public class ClienteController {
     private final ClienteService clienteService;
 
     @GetMapping("/clientes-fieis")
-    public ResponseEntity<List<MaioresComprasDTO>> obterClientesFieis() {
+    public ResponseEntity<List<MaioresCompras>> obterClientesFieis() {
         return ResponseEntity.ok(clienteService.obterClientesFieis());
     }
 

@@ -3,7 +3,7 @@ package com.example.vinhedo_digio.service;
 import com.example.vinhedo_digio.exception.NaoEcontradoException;
 import com.example.vinhedo_digio.model.Cliente;
 import com.example.vinhedo_digio.model.Compra;
-import com.example.vinhedo_digio.model.MaioresComprasDTO;
+import com.example.vinhedo_digio.model.MaioresCompras;
 import com.example.vinhedo_digio.model.Produto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +22,7 @@ public class ClienteService {
     private final ClientesEProdutosService clientesEProdutosService;
     private final ComprasService comprasService;
 
-    public List<MaioresComprasDTO> obterClientesFieis() {
+    public List<MaioresCompras> obterClientesFieis() {
         return comprasService.obterMaioresCompras().stream().limit(3).toList();
     }
 

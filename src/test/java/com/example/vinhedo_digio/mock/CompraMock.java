@@ -10,7 +10,7 @@ public class CompraMock {
 
 
     public static Compra build() {
-       return Compra.builder()
+        return Compra.builder()
                 .codigo("1")
                 .quantidade(5)
                 .build();

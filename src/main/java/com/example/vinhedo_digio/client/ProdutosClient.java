@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 
-@FeignClient(value = "produtos-client", url = "https://rgr3viiqdl8sikgv.public.blob.vercel-storage.com")
+@FeignClient(value = "produtos-client", url = "${services.produtos-client.url}")
 public interface ProdutosClient {
 
-    @GetMapping("/produtos-mnboX5IPl6VgG390FECTKqHsD9SkLS.json")
+    @GetMapping("${services.produtos-client.get-protudos-path.url}")
     List<Produto> obterProdutos();
 
 }

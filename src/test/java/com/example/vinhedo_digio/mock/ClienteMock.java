@@ -8,8 +8,8 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClienteMock {
-    public static Cliente build() {
 
+    public static Cliente build() {
         return Cliente.builder()
                 .cpf("12345678911")
                 .nome("Pedro Henrique Silva de Alcântara")

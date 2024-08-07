@@ -2,7 +2,7 @@ package com.example.vinhedo_digio.service;
 
 import com.example.vinhedo_digio.mock.ClientesEComprasMock;
 import com.example.vinhedo_digio.mock.ProdutoMock;
-import com.example.vinhedo_digio.model.MaioresComprasDTO;
+import com.example.vinhedo_digio.model.MaioresCompras;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class ClienteServiceTest {
     @Test
     void obterClientesFieis() {
 //        ClientesECompras expected = ClientesEComprasMock.build();
-        var esperado = List.of(RANDOM.nextObject(MaioresComprasDTO.class));
+        var esperado = List.of(RANDOM.nextObject(MaioresCompras.class));
         when(comprasService.obterMaioresCompras()).thenReturn(esperado);
 
         var resposta = service.obterClientesFieis();
@@ -55,7 +55,7 @@ class ClienteServiceTest {
     }
 
     @Test
-    void obterRecomendacaoNaoEcontrado() {
+    void obterRecomendacaoNaoEcontradoException() {
         var clientesECompras = ClientesEComprasMock.build();
         when(clientesEProdutosService.obterClientesEProdutos()).thenReturn(clientesECompras);
         Assertions.assertThrows(RuntimeException.class, () -> service.obterRecomendacao("123"));

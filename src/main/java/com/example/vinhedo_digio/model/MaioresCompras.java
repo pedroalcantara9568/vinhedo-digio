@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class MaioresComprasDTO implements Serializable {
+public class MaioresCompras implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 4032213499797371384L;

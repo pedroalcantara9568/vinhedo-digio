@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ComprasMock {
 
-
     public static Compras build() {
         return Compras.builder()
                 .ano_compra(2020L)

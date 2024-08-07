@@ -19,7 +19,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class ClientesEProdutosServiceTest {
 
-
     @Mock
     private ProdutosClient produtosClient;
 

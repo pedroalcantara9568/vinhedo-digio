@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RequiredArgsConstructor
 public class NaoEcontradoExceptionHandler {
 
-
     @ExceptionHandler(NaoEcontradoException.class)
     public ResponseEntity<ErroDTO> rejectionAutomaticExceptionHandler(NaoEcontradoException exception) {
+        log.info(exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErroDTO.builder().message(exception.getMessage()).build());
     }
 }

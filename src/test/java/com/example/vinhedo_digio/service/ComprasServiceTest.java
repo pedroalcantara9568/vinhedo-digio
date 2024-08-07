@@ -3,9 +3,6 @@ package com.example.vinhedo_digio.service;
 import com.example.vinhedo_digio.exception.NaoEcontradoException;
 import com.example.vinhedo_digio.mock.ClientesEComprasMock;
 import com.example.vinhedo_digio.mock.MaioresComprasDTOMock;
-import com.example.vinhedo_digio.mock.ProdutoMock;
-import com.example.vinhedo_digio.model.MaioresComprasDTO;
-import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,8 +17,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ComprasServiceTest {
-    private static final EasyRandom RANDOM = new EasyRandom();
-    public static final String CPF = "12345678911";
+
     @Mock
     private ClientesEProdutosService clientesEProdutosService;
 
@@ -55,7 +51,7 @@ class ComprasServiceTest {
     }
 
     @Test
-    void obterMaiorCompraPorAnoUnsucessull() {
+    void obterMaiorCompraPorAnoNaoEcontradoException() {
         var clientesECompras = ClientesEComprasMock.build();
         when(clientesEProdutosService.obterClientesEProdutos()).thenReturn(clientesECompras);
 

@@ -14,17 +14,17 @@ public class ComprasService {
     public static final String MESSAGE = "CPF não encontrado na Lista de Clientes";
     private final ClientesEProdutosService clientesEProdutosService;
 
-    public List<MaioresComprasDTO> obterMaioresCompras() {
+    public List<MaioresCompras> obterMaioresCompras() {
         var clientesECompras = clientesEProdutosService.obterClientesEProdutos();
 
         var maioresComprasDTOS = obterMaioresComprasDetalhadas(clientesECompras.clientes(), clientesECompras.produtos());
 
         return maioresComprasDTOS.stream()
-                .sorted(Comparator.comparing(MaioresComprasDTO::getValorTotal).reversed())
+                .sorted(Comparator.comparing(MaioresCompras::getValorTotal).reversed())
                 .toList();
     }
 
-    public MaioresComprasDTO obterMaiorCompraPorAno(Long ano) {
+    public MaioresCompras obterMaiorCompraPorAno(Long ano) {
         var clientesEProdutos = clientesEProdutosService.obterClientesEProdutos();
 
         return clientesEProdutos.clientes().stream()
@@ -32,11 +32,11 @@ public class ComprasService {
                         .map(compra -> criarMaioresComprasDTOSeAnoIgual(ano, cliente, compra, clientesEProdutos.produtos()))
                         .filter(Optional::isPresent)
                         .map(Optional::get))
-                .max(Comparator.comparing(MaioresComprasDTO::getValorTotal))
+                .max(Comparator.comparing(MaioresCompras::getValorTotal))
                 .orElseThrow(() -> new NaoEcontradoException(MESSAGE));
     }
 
-    private Optional<MaioresComprasDTO> criarMaioresComprasDTOSeAnoIgual(Long ano, Cliente cliente, Compra compra, List<Produto> produtos) {
+    private Optional<MaioresCompras> criarMaioresComprasDTOSeAnoIgual(Long ano, Cliente cliente, Compra compra, List<Produto> produtos) {
         return produtos.stream()
                 .filter(produto -> Objects.equals(produto.getCodigo(), Long.valueOf(compra.getCodigo())))
                 .filter(produto -> Objects.equals(ano, produto.getAnoCompra()))
@@ -47,17 +47,17 @@ public class ComprasService {
                 .findFirst();
     }
 
-    private MaioresComprasDTO criarMaioresComprasDTO(Cliente cliente, Compra compra, Produto produto, BigDecimal valorTotalCompra) {
+    private MaioresCompras criarMaioresComprasDTO(Cliente cliente, Compra compra, Produto produto, BigDecimal valorTotalCompra) {
         var comprasList = List.of(new Compras(produto.getCodigo(), produto.getTipoVinho(), produto.getPreco(), compra.getQuantidade(), produto.getAnoCompra(), produto.getSafra()));
-        return new MaioresComprasDTO(cliente.getNome(), cliente.getCpf(), comprasList, valorTotalCompra);
+        return new MaioresCompras(cliente.getNome(), cliente.getCpf(), comprasList, valorTotalCompra);
     }
 
-    private List<MaioresComprasDTO> obterMaioresComprasDetalhadas(List<Cliente> clientes, List<Produto> produtos) {
-        List<MaioresComprasDTO> listaMaiores = new ArrayList<>();
+    private List<MaioresCompras> obterMaioresComprasDetalhadas(List<Cliente> clientes, List<Produto> produtos) {
+        List<MaioresCompras> listaMaiores = new ArrayList<>();
         clientes.forEach(cliente -> {
             BigDecimal valorTotal = obterValorTotal(cliente, produtos);
             List<Compras> compras = obterCompras(cliente, produtos);
-            listaMaiores.add(MaioresComprasDTO.builder()
+            listaMaiores.add(MaioresCompras.builder()
                     .nome(cliente.getNome())
                     .cpf(cliente.getCpf())
                     .compras(compras)

@@ -1,6 +1,6 @@
 package com.example.vinhedo_digio.controller;
 
-import com.example.vinhedo_digio.model.MaioresComprasDTO;
+import com.example.vinhedo_digio.model.MaioresCompras;
 import com.example.vinhedo_digio.service.ComprasService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -64,7 +63,7 @@ class ComprasControllerTest {
 
     @Test
     void obterClientesFieis() throws Exception {
-        var expected = List.of(RANDOM.nextObject(MaioresComprasDTO.class));
+        var expected = List.of(RANDOM.nextObject(MaioresCompras.class));
 
         when(service.obterMaioresCompras()).thenReturn(expected);
 
@@ -72,7 +71,7 @@ class ComprasControllerTest {
                 get(COMPRAS).contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk());
 
-        var actual = mapper.readValue(res.andReturn().getResponse().getContentAsString(), new TypeReference<List<MaioresComprasDTO>>() {
+        var actual = mapper.readValue(res.andReturn().getResponse().getContentAsString(), new TypeReference<List<MaioresCompras>>() {
         });
 
         assertThat(actual)
@@ -82,7 +81,7 @@ class ComprasControllerTest {
 
     @Test
     void obterRecomendacao() throws Exception {
-        var expected = RANDOM.nextObject(MaioresComprasDTO.class);
+        var expected = RANDOM.nextObject(MaioresCompras.class);
 
         when(service.obterMaiorCompraPorAno(any(Long.class))).thenReturn(expected);
 
@@ -90,7 +89,7 @@ class ComprasControllerTest {
                 get(COMPRAS_123).contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk());
 
-        var actual = mapper.readValue(res.andReturn().getResponse().getContentAsString(), MaioresComprasDTO.class);
+        var actual = mapper.readValue(res.andReturn().getResponse().getContentAsString(), MaioresCompras.class);
 
         assertThat(actual)
                 .usingRecursiveComparison()
