@@ -10,7 +10,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class ComprasService {
+public class CompraService {
     public static final String MESSAGE = "CPF não encontrado na Lista de Clientes";
     private final ClientesEProdutosService clientesEProdutosService;
 

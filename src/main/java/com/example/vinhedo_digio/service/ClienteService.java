@@ -20,10 +20,10 @@ public class ClienteService {
     public static final String MESSAGE = "CPF não encontrado na Lista de Clientes";
     public static final String NENHUMA_RECOMENDACAO_DE_VINHO = "Não foi encontrada nenhuma recomendação de vinho";
     private final ClientesEProdutosService clientesEProdutosService;
-    private final ComprasService comprasService;
+    private final CompraService compraService;
 
     public List<MaioresCompras> obterClientesFieis() {
-        return comprasService.obterMaioresCompras().stream().limit(3).toList();
+        return compraService.obterMaioresCompras().stream().limit(3).toList();
     }
 
     public Produto obterRecomendacao(String cpf) {

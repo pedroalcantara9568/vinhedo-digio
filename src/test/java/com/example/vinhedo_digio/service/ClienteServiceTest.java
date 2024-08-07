@@ -23,7 +23,7 @@ class ClienteServiceTest {
     @Mock
     private ClientesEProdutosService clientesEProdutosService;
     @Mock
-    private ComprasService comprasService;
+    private CompraService compraService;
 
     @InjectMocks
     ClienteService service;
@@ -32,7 +32,7 @@ class ClienteServiceTest {
     void obterClientesFieis() {
 //        ClientesECompras expected = ClientesEComprasMock.build();
         var esperado = List.of(RANDOM.nextObject(MaioresCompras.class));
-        when(comprasService.obterMaioresCompras()).thenReturn(esperado);
+        when(compraService.obterMaioresCompras()).thenReturn(esperado);
 
         var resposta = service.obterClientesFieis();
 

@@ -1,7 +1,7 @@
 package com.example.vinhedo_digio.controller;
 
 import com.example.vinhedo_digio.model.MaioresCompras;
-import com.example.vinhedo_digio.service.ComprasService;
+import com.example.vinhedo_digio.service.CompraService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = {ComprasController.class, ComprasService.class})
+@SpringBootTest(classes = {ComprasController.class, CompraService.class})
 @EnableWebMvc
 @TestPropertySource(properties = {
         "server.port=8082"
@@ -42,7 +42,7 @@ class ComprasControllerTest {
 
     private MockMvc mockMvc;
     @MockBean
-    private ComprasService service;
+    private CompraService service;
 
     private ObjectMapper mapper;
     @Autowired
